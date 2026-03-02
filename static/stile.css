@@ -1,0 +1,103 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  display: block;
+  font-family: 'Noto Sans', 'serif';
+}
+
+.contenitore-tabella {
+  display: table;
+  margin: 40px auto;
+  transform: scale(0.80);          /* Zoom più moderato */
+  transform-origin: top center;
+}
+
+.titolo {
+  color: #e50000;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: -30px;
+  margin-top: -50px;
+  text-align: center;
+}
+
+.versione-orario {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #e50000;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: auto;
+  border: none;
+}
+
+th, td {
+  border: 1px solid #000;
+  padding: 1.5px 7px;                /* Celle compatte ma leggibili */
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 20px;                 /* Font leggermente più grande */
+}
+
+table tr {
+  height: 4px;
+}
+
+tbody tr.riga_da_evidenziare:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-last-child(1)):not(:nth-last-child(2)):hover {
+    background-color: #ffbd1a;
+}
+
+thead {
+  display: none;
+}
+
+th:first-child,
+td:first-child {
+  width: auto;
+  min-width: 5px;
+}
+
+th:not(:first-child),
+td:not(:first-child) {
+  width: 2px;
+}
+
+tr:first-child td {
+  border: none;
+}
+
+td:first-child {
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  text-align: left;
+}
+
+table tbody tr:nth-child(2) {
+    font-weight: bold;
+}
+
+table tbody tr:nth-last-child(1) {
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(3) {
+    text-transform: lowercase;
+}
+
+table tbody tr:nth-last-child(2) {
+    text-transform: lowercase;
+}
+
