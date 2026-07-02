@@ -10,10 +10,11 @@ html, body {
 }
 
 .contenitore-tabella {
-  display: table;
-  margin: 40px auto;
-  transform: scale(0.80);          /* Zoom più moderato */
-  transform-origin: top center;
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
 .titolo {
@@ -35,8 +36,8 @@ html, body {
 
 table {
   border-collapse: collapse;
-  table-layout: fixed;
-  width: auto;
+  table-layout: auto;
+  width: 100%;
   border: none;
 }
 
@@ -48,7 +49,8 @@ th, td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 20px;                 /* Font leggermente più grande */
+  font-size: 16px;                 /* Font leggermente più grande */
+
 }
 
 table tr {
@@ -56,7 +58,10 @@ table tr {
 }
 
 tbody tr.riga_da_evidenziare:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-last-child(1)):not(:nth-last-child(2)):hover {
-    background-color: #ffbd1a;
+    /* background-color: #FFCC4D; */
+    /* background-color: #1AFFBD; */
+    background-color: #6EFFD5;
+    /* background-color: #FFD56E; */
 }
 
 thead {
@@ -65,13 +70,21 @@ thead {
 
 th:first-child,
 td:first-child {
-  width: auto;
-  min-width: 5px;
+  width: 260px;
+  /* Per massimo coppolecchia */
+  min-width: 210px;
+  max-width: 210px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  text-align: left;
 }
 
 th:not(:first-child),
 td:not(:first-child) {
-  width: 2px;
+  width: auto;
 }
 
 tr:first-child td {
@@ -101,3 +114,22 @@ table tbody tr:nth-last-child(2) {
     text-transform: lowercase;
 }
 
+.emoji-icon {
+    width: 1.3em;
+    height: 1.3em;
+    vertical-align: -0.2em;
+}
+
+.emoji-icon-gif {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: -0.2em;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+    color: '#000000';
+    text-decoration: none;
+}
