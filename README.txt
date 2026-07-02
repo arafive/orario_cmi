@@ -2,22 +2,18 @@ README.txt
 
 :Author: daniele.carnevale
 :Email: daniele.carnevale@01588-lenovo.cfmi.arpal.org
-:Date: 2025-08-01 16:06
+:Date: 2025-08-03 08:48
 
-Rifare l'orario cmi, telefoni e OVG che si trovano ai link:
-- https://cmi-servizi.arpal.liguria.it/orario/
-- https://cmi-servizi.arpal.liguria.it/telefoni/
+Avviare flask in background:
+nohup flask run --host=0.0.0.0 --port=5000 > log_web.log 2>&1 &
 
-Per i telefoni vorrei appoggiarmi a questo link:
-- https://gso.arpal.org/telefono.aspx
+ip di questo computer ARPAL: 10.24.50.225 (trovato con >>> hostname -I)
+Link: http://10.24.50.225:5000
 
->>> Cosa deve avere <<<
-Ok Appoggiarsi interamente ai file esistenti
-- Avere icone migliori
-Ok Contemplare i corsi
-Ok Quando si passa sopra un nome spunta l'interno
-- Barra di ricerca dei numeri
-Ok Link ai numeri di agenzia
-Ok Link ai vigilanti gialli (sono in /mnt/isilon-arpal/agcmi00a00_comune/archivio/Archivio_Progetti/2025-16_Progetto Vigilanza Gialla/Orario/{anno_corrente})
-    - Metti dei link migliori. L'ultima versione è comunque sempre "{mese_corrente}\ {anno_corrente}.pdf"
-- Metti il clima dopo prima delle reti
+>>> Cosa ho fatto per far vedere il link anche con la VPN <<<
+sudo systemctl status firewalld
+sudo firewall-cmd --permanent --add-port=5000/tcp
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-ports
+
+Maggiori dettagli su questa chat: https://chatgpt.com/c/688f02a0-cebc-8326-8022-c757edab1687
