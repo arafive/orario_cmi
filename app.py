@@ -331,9 +331,9 @@ def mostra_tabella(nome_file):
             if colore:
                 style_parts.append(f'background-color: {colore};')
 
-            # Se la colonna è una di quelle da evidenziare e non ha colore preesistente
-            if c_idx in colonna_gialla and not colore:
-                # style_parts.append('background-color: #ffe900;')
+            # Se la colonna è quella del giorno corrente: sempre in evidenza,
+            # tranne quando la cella ha già un colore "importante" (non il grigio weekend)
+            if c_idx in colonna_gialla and (not colore or colore == '#D3D3D3'):
                 style_parts.append('background-color: #FFD700;')
 
             cell_str = str(cell).strip()
