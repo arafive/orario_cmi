@@ -112,7 +112,8 @@ def mostra_tabella(nome_file):
         return f"Formato nome file non valido: {nome_file}", 400
 
     percorso = f'link/{mese_corrente.capitalize()} {anno_corrente}.xls'
-    data_corrente = pd.to_datetime(f'{anno_corrente}-{dict_map_mesi[mese_corrente]}-01')
+    data_corrente = pd.to_datetime(
+        f'{anno_corrente}-{dict_map_mesi[mese_corrente]}-01')
     if oggi < data_corrente:
         nome_foglio = 'prima emissione'
     else:
@@ -121,7 +122,8 @@ def mostra_tabella(nome_file):
     print(f'{nome_foglio=}\n')
 
     # Carica i dati con pandas (solo i valori)
-    df = pd.read_excel(percorso, skiprows=1, engine='xlrd', sheet_name=nome_foglio)
+    df = pd.read_excel(percorso, skiprows=1, engine='xlrd',
+                       sheet_name=nome_foglio)
     df = df.fillna("")  # mantiene le celle vuote
     df.columns = ["" for x in df.columns]
     df = df.iloc[0:df.index[(df == "").all(axis=1)][-1]]
@@ -140,12 +142,15 @@ def mostra_tabella(nome_file):
     # Calcola mese e anno precedente/successivo
     mese_prima, mese_dopo = dict_mesi[mese_corrente][0], dict_mesi[mese_corrente][1]
 
-    anno_prima = anno_corrente - 1 if mese_corrente == 'gennaio' and mese_prima == 'dicembre' else anno_corrente
-    anno_dopo = anno_corrente + 1 if mese_corrente == 'dicembre' and mese_dopo == 'gennaio' else anno_corrente
+    anno_prima = anno_corrente - \
+        1 if mese_corrente == 'gennaio' and mese_prima == 'dicembre' else anno_corrente
+    anno_dopo = anno_corrente + \
+        1 if mese_corrente == 'dicembre' and mese_dopo == 'gennaio' else anno_corrente
 
     nome_file_prima, nome_file_dopo = f'{mese_prima.capitalize()}_{anno_prima}', f'{mese_dopo.capitalize()}_{anno_dopo}'
 
-    url_mese_prima, url_mese_dopo = url_for('mostra_tabella', nome_file=nome_file_prima), url_for('mostra_tabella', nome_file=nome_file_dopo)
+    url_mese_prima, url_mese_dopo = url_for('mostra_tabella', nome_file=nome_file_prima), url_for(
+        'mostra_tabella', nome_file=nome_file_dopo)
 
     print(f'{url_mese_prima=}')
     print(f'{url_mese_dopo=}\n')
@@ -153,16 +158,19 @@ def mostra_tabella(nome_file):
     if os.path.exists(f'./link/{mese_dopo.capitalize()} {anno_dopo}.xls'):
         html_titolo = f'''
         <h1 class="titolo" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <a href="{url_mese_prima}" style="text-decoration:none; font-size: 2em;">&#8592;</a> {spazi}
+          #8592;</a> {spazi}
+          <a href="{url_mese_prima}" style="text-decoration:none; font-size: 2em;">&
           {titolo} {spazi}
-          <a href="{url_mese_dopo}" style="text-decoration:none; font-size: 2em;">&#8594;</a>
+          #8594;</a>
+          <a href="{url_mese_dopo}" style="text-decoration:none; font-size: 2em;">&
         </h1>
         <br>
         '''
     else:
         html_titolo = f'''
         <h1 class="titolo" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-          <a href="{url_mese_prima}" style="text-decoration:none; font-size: 2em;">&#8592;</a> {spazi}
+          #8592;</a> {spazi}
+          <a href="{url_mese_prima}" style="text-decoration:none; font-size: 2em;">&
           {titolo} {spazi}
         </h1>
         <br>
@@ -171,8 +179,10 @@ def mostra_tabella(nome_file):
     print(f'{html_titolo=}\n')
 
     html_numeri_agenzia = '<a href="https://reportistica.arpal.org:8443/ords/r/arpal/ict-visualizzazione/elenco-del-telefono" target="_blank">Tutti i numeri d\'agenzia <img src="/static/telefono_fisso.svg" class="emoji-icon-gif"></a>'
-    torna_ad_oggi_url = url_for('mostra_tabella', _anno=anno, nome_file=f"{mese.capitalize()}_{anno}")
-    torna_ad_oggi = f'<a href="{torna_ad_oggi_url}">Torna ad oggi <img src="/static/calendario.svg" class="emoji-icon-gif"></a>' scelta_emoji = '<a href="https://emojiterra.com/animated-emoji/" target="_blank">Scegli il tuo emoji <img src="/static/faccia_sottosopra.gif" class="emoji-icon-gif"></a>'
+    torna_ad_oggi_url = url_for(
+        'mostra_tabella', _anno=anno, nome_file=f"{mese.capitalize()}_{anno}")
+    torna_ad_oggi = f'<a href="{torna_ad_oggi_url}">Torna ad oggi <img src="/static/calendario.svg" class="emoji-icon-gif"></a>'
+    scelta_emoji = '<a href="https://emojiterra.com/animated-emoji/" target="_blank">Scegli il tuo emoji <img src="/static/faccia_sottosopra.gif" class="emoji-icon-gif"></a>'
     orari_OVG = f'<a href="https://cmi-servizi.arpal.liguria.it/orario/Turni_OVG/{anno_corrente}/{mese_corrente.capitalize()}_{anno_corrente}.pdf" target="_blank">Vigilanti Gialli <img src="/static/occhiaie.gif" class="emoji-icon-gif"></a>'
     html_info = f'<h2 class="versione-orario">Versione: {versione} {spazi} {data.strftime("%d/%m/%Y %H:%M:%S")} {spazi} {html_numeri_agenzia} {spazi} {orari_OVG} {spazi} {torna_ad_oggi} {spazi} {scelta_emoji}</h2>'
 
@@ -286,7 +296,8 @@ def mostra_tabella(nome_file):
 
     # Costruisce la tabella HTML
     html_tabella += '<table border="1" style="margin:auto; border-collapse:collapse;">\n'
-    html_tabella += '  <thead><tr>' + ''.join(f'<th>{col}</th>' for col in df.columns) + '</tr></thead>\n'
+    html_tabella += '  <thead><tr>' + \
+        ''.join(f'<th>{col}</th>' for col in df.columns) + '</tr></thead>\n'
     html_tabella += '  <tbody>\n'
 
     ################################################################################
@@ -309,7 +320,8 @@ def mostra_tabella(nome_file):
     ################################
 
     for r_idx, (_, row) in enumerate(df.iterrows()):
-        row_values, num_colonne = [str(x).strip() for x in row], len(df.columns)
+        row_values, num_colonne = [str(x).strip()
+                                       for x in row], len(df.columns)
 
         if all(val == "" for val in row_values):
             html_riga = f'    <tr><td colspan="{num_colonne}" style="border:none; height: 20px;"></td></tr>\n'
@@ -380,25 +392,30 @@ def mostra_tabella(nome_file):
                 if type(valore) == str:
                     if len(valore) == 1:
                         if valore in ['P', 'H', 'I']:
-                            style_parts.append('color: #E50000; font-weight: bold;')
+                            style_parts.append(
+                                'color: #E50000; font-weight: bold;')
                             break
 
                     elif len(valore) > 1:
                         if valore == 'CP':
-                            style_parts.append('color: #FF00FF; font-weight: normal;')
+                            style_parts.append(
+                                'color: #FF00FF; font-weight: normal;')
                             break
 
                         elif valore == 'SI':
-                            style_parts.append('color: #E50000; font-weight: bold;')
+                            style_parts.append(
+                                'color: #E50000; font-weight: bold;')
                             break
 
                         elif valore.endswith('H'):
                             if valore[-2:] == 'CH':
-                                style_parts.append('color: #FF00FF; font-weight: normal;')
+                                style_parts.append(
+                                    'color: #FF00FF; font-weight: normal;')
                                 break
 
                             else:
-                                style_parts.append('color: #E50000; font-weight: bold;')
+                                style_parts.append(
+                                    'color: #E50000; font-weight: bold;')
                                 break
 
             ################################
@@ -676,15 +693,11 @@ def mostra_tabella(nome_file):
         # print(f'{html_riga=}')
 
         try:
-            if col_idx == col_riga_gialla and r_idx == 1:
-                # print('Definita riga_numeri_giorni')
+            if r_idx == 1:
                 riga_numeri_giorni = html_riga
-                # print(f'{riga_numeri_giorni=}')
 
-            if col_idx == col_riga_gialla and r_idx == 2:
-                # print('Definita riga_nomi_giorni')
+            if r_idx == 2:
                 riga_nomi_giorni = html_riga
-                # print(f'{riga_nomi_giorni=}')
         except UnboundLocalError:
             pass
 
