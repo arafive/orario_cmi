@@ -320,8 +320,7 @@ def mostra_tabella(nome_file):
     ################################
 
     for r_idx, (_, row) in enumerate(df.iterrows()):
-        row_values, num_colonne = [str(x).strip()
-                                       for x in row], len(df.columns)
+        row_values, num_colonne = [str(x).strip() for x in row], len(df.columns)
 
         if all(val == "" for val in row_values):
             html_riga = f'    <tr><td colspan="{num_colonne}" style="border:none; height: 20px;"></td></tr>\n'
@@ -744,7 +743,8 @@ def mostra_tabella(nome_file):
     # print(f'{html_tabella=}')
 
     # Inserisce la tabella nell'HTML base
-    with open("index.html", encoding="utf-8") as f:
+    percorso_index = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", "index.html")
+    with open(percorso_index, encoding="utf-8") as f:
         html_base = f.read()
 
     link_css = '<link rel="stylesheet" type="text/css" href="/static/stile.css">'
