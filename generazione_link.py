@@ -10,26 +10,19 @@ os.makedirs(cartella_orario, exist_ok=True)
 os.makedirs(cartella_orario_OVG, exist_ok=True)
 
 cartella_madre_orario = '/mnt/isilon-arpal/orariocmi'
-cartella_madre_orario_OVG = '/mnt/isilon-arpal/agcmi00a00_comune/archivio/Archivio_Progetti/2025-16_Progetto\ Vigilanza\ Gialla/Orario'
+cartella_madre_orario_OVG = '/mnt/isilon-arpal/agcmi00a00_comune/archivio/Archivio_Progetti/2025-16_Progetto Vigilanza Gialla/Orario'
 
-# for anno in range(2008, 2028):
-    
-#     for mese in lista_mesi:
-        
-#         if os.path.exists(f'{cartella_madre_orario}/{mese} {anno}.xls'):
-#             os.system(f'ln -s {cartella_madre_orario}/{mese}\ {anno}.xls {cartella_orario}/{mese}\ {anno}.xls')
-#         else:
-#             os.system(f'ln -s {cartella_madre_orario}/{anno}/{mese}\ {anno}.xls {cartella_orario}/{mese}\ {anno}.xls')
+...
 
-#################
-#################
-
-# Non capisco perchè non funzioni
 for anno in range(2008, 2028):
-    
+
     for mese in lista_mesi:
 
-        if os.path.exists(f'{cartella_madre_orario_OVG}/{anno}/{mese}_{anno}.pdf'):
-            os.system(f'ln -s {cartella_madre_orario_OVG}/{anno}/{mese}_{anno}.pdf {cartella_orario_OVG}/{mese}\ {anno}.pdf')
-        else:
-            os.system(f'ln -s {cartella_madre_orario_OVG}/{anno}/{mese}\ {anno}.pdf {cartella_orario_OVG}/{mese}\ {anno}.pdf')
+        origine_underscore = f'{cartella_madre_orario_OVG}/{anno}/{mese}_{anno}.pdf'
+        origine_spazio = f'{cartella_madre_orario_OVG}/{anno}/{mese} {anno}.pdf'
+        origine = origine_underscore if os.path.exists(origine_underscore) else origine_spazio
+
+        destinazione = f'{cartella_orario_OVG}/{mese} {anno}.pdf'
+        if os.path.lexists(destinazione):
+            os.remove(destinazione)
+        os.symlink(origine, destinazione)

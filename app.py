@@ -82,18 +82,13 @@ numeri_di_telefono.update({
 
 app = Flask(__name__)
 
-oggi = pd.Timestamp.now()
-# oggi = pd.to_datetime('2025-07-10')
-anno, mese, giorno = oggi.year, oggi.strftime('%B'), oggi.day
-print(f'{oggi=}')
-
 spazi = '&nbsp;' * 8
-
-# %%
 
 
 @app.route('/')
 def index():
+    oggi = pd.Timestamp.now()
+    anno, mese = oggi.year, oggi.strftime('%B')
     return redirect(url_for('mostra_tabella', nome_file=f"{mese.capitalize()}_{anno}"))
 
 
@@ -179,8 +174,7 @@ def mostra_tabella(nome_file):
     print(f'{html_titolo=}\n')
 
     html_numeri_agenzia = '<a href="https://reportistica.arpal.org:8443/ords/r/arpal/ict-visualizzazione/elenco-del-telefono" target="_blank">Tutti i numeri d\'agenzia <img src="/static/telefono_fisso.svg" class="emoji-icon-gif"></a>'
-    torna_ad_oggi_url = url_for(
-        'mostra_tabella', _anno=anno, nome_file=f"{mese.capitalize()}_{anno}")
+	torna_ad_oggi_url = url_for('mostra_tabella', nome_file=f"{mese.capitalize()}_{anno}")
     torna_ad_oggi = f'<a href="{torna_ad_oggi_url}">Torna ad oggi <img src="/static/calendario.svg" class="emoji-icon-gif"></a>'
     scelta_emoji = '<a href="https://emojiterra.com/animated-emoji/" target="_blank">Scegli il tuo emoji <img src="/static/faccia_sottosopra.gif" class="emoji-icon-gif"></a>'
     orari_OVG = f'<a href="https://cmi-servizi.arpal.liguria.it/orario/Turni_OVG/{anno_corrente}/{mese_corrente.capitalize()}_{anno_corrente}.pdf" target="_blank">Vigilanti Gialli <img src="/static/occhiaie.gif" class="emoji-icon-gif"></a>'
@@ -757,4 +751,4 @@ def mostra_tabella(nome_file):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
